@@ -14,6 +14,28 @@
 
 呼叫端只丟一個 `format` 字串進來,`ExportService` 查 map、委派出去。要多支援一種格式,就多註冊一個策略——**不用改 Context、不用改呼叫端**(開放封閉原則)。
 
+## 對照 Clean Architecture 分層
+
+本範例為求聚焦,把所有角色平放在同一個 package;但每個角色在 Clean Architecture 裡各有歸屬。若要落成分層目錄,對應關係如下:
+
+| 元件 | 分層 | 理由 |
+|------|------|------|
+| `Row` | **Entity / Domain** | 純資料結構,不依賴任何外層 |
+| `Exporter`(介面) | **Use Case** | 抽象策略是「呼叫者」定義的 port,屬於內層 |
+| `ExportService`(Context) | **Use Case** | 查表、委派、流程編排;不碰任何格式細節 |
+| `CSVExporter`、`JSONExporter`、`ExportFunc`、`CSVExportFunc` | **Interface Adapters** | 具體策略,把 domain 資料轉成 CSV/JSON,依賴 `encoding/csv`、`encoding/json` |
+| 策略註冊 `NewExportService(map{...})` | **Frameworks & Drivers** | 組裝點;決定有哪些具體策略,只發生在最外層 |
+
+依賴方向永遠單向,由外指向內:
+
+```
+組裝(main)  ──►  具體策略(adapter)  ──►  Exporter + ExportService(usecase)  ──►  Row(domain)
+```
+
+關鍵:內層的 `ExportService` 只認 `Exporter` 介面,**不知道**外層有哪些具體策略存在;外層策略反過來實作內層宣告的介面。這正是 **依賴反轉原則(DIP)**——Strategy pattern 天然就是 Clean Architecture 邊界跨越的標準手法。要換格式、加格式,內層一行都不用動。
+
+> 註:實務上 2~3 種 exporter 平放單一 package 反而更好維護;分層目錄的價值要在多 use case、需要強制依賴邊界時才浮現。
+
 ## 兩種寫法
 
 ### A. Interface(`strategy_inteface.go`)
