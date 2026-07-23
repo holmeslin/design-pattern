@@ -6,7 +6,7 @@
 
 每種語言各自一個資料夾,資料夾內再依模式分類:
 
-```
+```text
 design-pattern/
 ├── java/
 ├── python/
@@ -16,7 +16,7 @@ design-pattern/
 
 每個模式放一個獨立子資料夾,附上簡短說明與可執行範例。例如:
 
-```
+```text
 python/
 └── singleton/
     ├── README.md      # 這個模式在做什麼、何時用
