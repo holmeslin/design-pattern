@@ -14,7 +14,7 @@ design-pattern/
 └── ...
 ```
 
-每個模式建議放一個獨立子資料夾,附上簡短說明與可執行範例。例如:
+每個模式放一個獨立子資料夾,附上簡短說明與可執行範例。例如:
 
 ```
 python/
@@ -23,11 +23,15 @@ python/
     └── singleton.py   # 範例實作
 ```
 
+## 已實作
+
+- **[go/](go/)** — GoF 23 種 + 4 種 Go 慣用並發模式,依 GoF 書本順序編號,每個模式一個獨立 module 與可跑的 `example_test.go`。詳見 [go/README.md](go/README.md)。
+
 ## 模式分類(GoF)
 
 - **建立型(Creational)**:Singleton、Factory Method、Abstract Factory、Builder、Prototype
 - **結構型(Structural)**:Adapter、Bridge、Composite、Decorator、Facade、Flyweight、Proxy
-- **行為型(Behavioral)**:Chain of Responsibility、Command、Iterator、Mediator、Memento、Observer、State、Strategy、Template Method、Visitor
+- **行為型(Behavioral)**:Chain of Responsibility、Command、Interpreter、Iterator、Mediator、Memento、Observer、State、Strategy、Template Method、Visitor
 
 ## 授權
 
