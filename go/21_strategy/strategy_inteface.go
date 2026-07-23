@@ -1,9 +1,3 @@
-// Package strategy 對應簡報第 6、7、8 頁:用「介面」實作 Strategy Pattern。
-//
-// 這裡是共用型別的落腳處(Row / Exporter / ExportService),
-// function type 版本(strategy_func_type.go)直接沿用,不再重複定義。
-//
-// 呼叫順序的軌跡走 stderr、方便對照;真正的資料輸出走傳入的 io.Writer。
 package strategy
 
 import (
@@ -19,7 +13,6 @@ import (
 // ============================================================
 // 定義「會變的行為」長什麼形狀。
 // ============================================================
-
 type Row map[string]string
 
 type Exporter interface {
@@ -27,10 +20,8 @@ type Exporter interface {
 }
 
 // ============================================================
-// ConcreteStrategy 們(infra 層)
-// 一種演算法,一個型別;各自的細節只住在自己的檔案裡。
+// ConcreteStrategy 一種演算法，一個型別；各自的細節只住在自己的檔案裡。
 // ============================================================
-
 type CSVExporter struct{}
 
 func (e *CSVExporter) Export(ctx context.Context, w io.Writer, rows []Row) error {
@@ -70,16 +61,13 @@ func (e *JSONExporter) Export(ctx context.Context, w io.Writer, rows []Row) erro
 }
 
 // ============================================================
-// Context
-// 持有一組策略,對外只有一個入口;自己不做事,只查表 + 轉交。
+// Context 持有一組策略，對外只有一個入口；自己不做事，只查表 + 轉交。
 // ============================================================
-
 type ExportService struct {
 	exporters map[string]Exporter // format → 策略
 }
 
-// NewExportService 組裝期:建立 Context 並把每種 format 對應的策略登記進 map。
-// 這一步只是「登記」,策略還沒被呼叫。
+// NewExportService 組裝期：建立 Context 並把每種 format 對應的策略登記進 map。
 func NewExportService(exporters map[string]Exporter) *ExportService {
 	return &ExportService{exporters: exporters}
 }

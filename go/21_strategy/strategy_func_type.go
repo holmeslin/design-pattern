@@ -1,5 +1,3 @@
-// 對應簡報第 9 頁「寫法 B:function type」。
-//
 // Row / Exporter / ExportService 沿用 strategy_inteface.go,不重複定義——
 // 這正是重點:Context 只認 Exporter 介面,不管背後是 struct 還是 function。
 package strategy
