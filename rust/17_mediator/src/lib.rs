@@ -59,9 +59,9 @@ mod tests {
         assert!(room.inbox(alice).is_empty());
     }
 
-    // UserId 只能由 join 產生;拿到別間聊天室的 id 時不 panic,send 忽略、inbox 為空
+    // 越界的 id(例如別間聊天室發的)不 panic,send 忽略、inbox 為空
     #[test]
-    fn foreign_id_is_ignored() {
+    fn out_of_range_id_is_ignored() {
         let mut other = ChatRoom::default();
         other.join("Xavier");
         let stranger = other.join("Yvonne"); // 在 other 是第 2 位,room 只有 1 人
