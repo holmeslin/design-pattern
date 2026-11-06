@@ -14,7 +14,7 @@
 
 ## Rust 慣用寫法
 
-產品以 `Box<dyn Button>` 回傳(trait object,執行期分派),因為主題通常是讀設定才決定。若編譯期就確定用哪一族,可改用泛型 `fn render_ui<F: GuiFactory>(f: &F)`,以靜態分派換取零成本。
+產品以 `Box<dyn Button>` 回傳(trait object,執行期分派),因為主題通常是讀設定才決定。若編譯期就確定用哪一族,可改用泛型 `fn render_ui<F: GuiFactory>(f: &F)`,但這只讓工廠呼叫變成靜態分派;產品仍是 `Box<dyn Button>`。要連產品也靜態分派,trait 需改用關聯型別(`type Button: Button;`)。
 
 ## 執行
 
