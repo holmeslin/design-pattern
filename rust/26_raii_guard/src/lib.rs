@@ -1,7 +1,7 @@
 use std::cell::RefCell;
 
 // 資源綁在值的生命週期上:持有 guard 就代表連線開著。
-// 用 RefCell 共用 log,讓 Drop 在只拿到 &self 的情況下也能寫入。
+// 多個 guard 同時透過共享的 & 引用同一份 log,要經由 & 寫入就需要 RefCell。
 pub struct ConnectionGuard<'a> {
     name: String,
     log: &'a RefCell<Vec<String>>,
