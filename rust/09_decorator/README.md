@@ -14,7 +14,7 @@
 
 ## Rust 慣用寫法
 
-用泛型包裝(`Logging<H: Handler>`)是零成本的:`Logging<Auth<Base>>` 在編譯期就是一個具體型別,編譯後沒有動態分派。代價是裝飾的組合在編譯期固定;要在執行期動態決定順序,才改用 `Box<dyn Handler>`。生態系的 `tower` crate 的 `Layer` / `Service` 就是這個模式。
+用泛型包裝(`Logging<H: Handler>`)是零成本的:`Logging<Auth<Base>>` 在編譯期就是一個具體型別,編譯後沒有動態分派。代價是裝飾的組合在編譯期固定;要在執行期動態決定順序,才改用 `Box<dyn Handler>`,並加上轉發實作 `impl<H: Handler + ?Sized> Handler for Box<H>`(否則 `Box<dyn Handler>` 本身不是 `Handler`,傳不進 `Logging<H>`)。生態系的 `tower` crate 的 `Layer` / `Service` 就是這個模式。
 
 ## 執行
 
