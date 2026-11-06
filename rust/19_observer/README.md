@@ -18,7 +18,7 @@ observer 就是閉包(`Box<dyn Fn(i32) -> String>`),不需要另外定義 Observ
 
 因為型別是 `Fn` 而不是 `FnMut`,observer 無法直接修改捕獲的變數;要累積狀態得自己用 `Cell` 或 `RefCell`。
 
-退訂靠 `SubscriptionId`,不是比較閉包本身(閉包無法比較相等)。`SubscriptionId` 的欄位是私有的,只有 `subscribe` 能產生;`unsubscribe` 遇到不認得的 id 會直接忽略。
+退訂靠 `SubscriptionId`,不是比較閉包本身(閉包無法比較相等)。`SubscriptionId` 的欄位是私有的,只有 `subscribe` 能產生;`unsubscribe` 遇到不認得的 id 會直接忽略。`SubscriptionId` 只對發出它的 `Station` 有效;拿別的 Station 的 id 可能退訂到別人。
 
 ## 執行
 
