@@ -1,0 +1,12 @@
+[workspace]
+resolver = "3"
+members = ["[0-9][0-9]_*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.96"
+publish = false
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
