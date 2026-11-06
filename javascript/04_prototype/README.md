@@ -8,8 +8,8 @@
 
 | 角色 | 對應本範例 | 職責 |
 |------|-----------|------|
-| **Prototype** | 被複製的設定物件 | 當作模板 |
-| **clone 操作** | `clone(config)` | Prototype 的 `clone()`:複製模板,取得可獨立修改的複本;呼叫它的程式碼才是 Client |
+| **Prototype** | 被複製的設定物件;`clone(config)` 是它的 clone 操作 | 當作模板,複製出可獨立修改的複本 |
+| **Client** | 呼叫 `clone(config)` 的程式碼 | 拿複本去改,不動原型 |
 
 JS 原生已內建:`structuredClone` 就是深拷貝,不用自己遞迴複製。
 
