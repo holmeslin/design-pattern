@@ -14,11 +14,11 @@
 
 ## Rust 慣用寫法
 
-**對照 Go 的 `defer`、JS 的 `using`。** Go 要在取得資源後自己寫 `defer conn.Close()`,JS 要寫 `using`;Rust 的資源釋放由所有權決定,不需要額外語法:值在擁有它的 scope 結束時被 drop,`Drop::drop` 就會執行。忘記釋放不會發生,因為沒有「釋放」這個步驟可以忘。標準函式庫的 `MutexGuard`(drop 時解鎖)與 `File`(drop 時關閉檔案)都是這個模式。
+**對照 Go 的 `defer`、JS 的 `using`。** Go 要在取得資源後自己寫 `defer conn.Close()`,JS 要寫 `using`;Rust 的資源釋放由所有權決定,不需要額外語法:值在擁有它的 scope 結束時被 drop,`Drop::drop` 就會執行。不必手動寫釋放步驟,也就不會忘記寫;但 Rust 不保證 `Drop` 一定執行(例如 `mem::forget`、`Rc` 循環會讓值永遠不被 drop)。標準函式庫的 `MutexGuard`(drop 時解鎖)與 `File`(drop 時關閉檔案)都是這個模式。
 
 **釋放的時機。** 同一個 scope 內的區域變數依宣告的相反順序 drop(測試裡 `b` 先於 `a` 關閉);也可以用 `drop(x)` 提早釋放;panic 展開(unwind)時一樣會 drop,測試 `drops_on_panic` 驗證了這點。
 
-**限制。** `Drop::drop` 不能回傳錯誤,所以像「關閉時可能失敗」的資源,通常另外提供一個會回傳 `Result` 的 `close(self)`,`Drop` 只當作最後的保險。另外 `drop` 在 panic 展開時才會執行;若 profile 設成 `panic = "abort"`,程式直接終止,不會執行 `Drop`。
+**限制。** `Drop::drop` 不能回傳錯誤,所以像「關閉時可能失敗」的資源,通常另外提供一個會回傳 `Result` 的 `close(self)`,`Drop` 只當作最後的保險。另外 panic 時要靠展開(unwind)才會執行 `drop`;若 profile 設成 `panic = "abort"`,程式直接終止,guard 不會被 drop。
 
 ## 執行
 
