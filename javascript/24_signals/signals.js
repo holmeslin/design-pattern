@@ -32,7 +32,7 @@ export function effect(fn) {
   run();
 }
 
-// shortcut: computed 是 eager 的,沒有排程與 glitch-free 保證;需要時改用 TC39 Signals polyfill 或框架實作;不清除舊相依
+// shortcut: computed 是 eager 的,沒有排程與 glitch-free 保證、不清除舊相依;需要時改用 TC39 Signals polyfill 或框架實作
 export function computed(fn) {
   const s = signal(undefined);
   effect(() => s.set(fn()));
