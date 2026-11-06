@@ -15,7 +15,7 @@
 
 ## Rust 慣用寫法
 
-command **不持有** `&mut Account`,改成呼叫 `execute(&self, account: &mut Account)` 時才把帳戶傳進來。借用規則不允許 `History` 裡存著多個對同一帳戶的可變參考,這是 Rust 版和 Go、JS 版最大的差異:那兩個語言的 command 可以直接記住 receiver,Rust 則讓 receiver 的借用只活在單次呼叫裡。`History` 以 `Vec<Box<dyn Command>>` 保存不同種類的命令。`Deposit` 用 `wrapping_add` / `wrapping_sub`,讓 `undo` 一定是 `execute` 的精確反運算,而且溢位時不會 panic。
+command **不持有** `&mut Account`,改成呼叫 `execute(&self, account: &mut Account)` 時才把帳戶傳進來。借用規則不允許 `History` 裡存著多個對同一帳戶的可變參考,這是 Rust 版和 Go、JS 版最大的差異:那兩個語言的 command 可以直接記住 receiver,Rust 則讓 receiver 的借用只活在單次呼叫裡。`History` 以 `Vec<Box<dyn Command>>` 保存不同種類的命令。`Deposit` 用 `wrapping_add` / `wrapping_sub`,讓 `undo` 一定是 `execute` 的精確反運算且溢位時不 panic,但這只是示範用的捷徑(溢位時餘額會悄悄回繞),真實金額應改用 `checked_*` 並回傳錯誤。
 
 ## 執行
 

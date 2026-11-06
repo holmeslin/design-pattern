@@ -15,6 +15,7 @@ pub struct Deposit {
 }
 
 // wrapping 讓 undo 永遠是 execute 的精確反運算,而且溢位時不會 panic。
+// shortcut: wrapping 只為示範不 panic,真實金額要用 checked_* 並回傳錯誤。
 impl Command for Deposit {
     fn execute(&self, account: &mut Account) {
         account.balance = account.balance.wrapping_add(self.amount);
