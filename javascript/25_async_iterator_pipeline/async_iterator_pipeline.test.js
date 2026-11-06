@@ -19,3 +19,9 @@ test('日誌管線:只留 ERROR、去掉前綴、取前 2 筆,並一路關閉上
   assert.deepEqual(result, ['b', 'd']);
   assert.equal(closed, true);
 });
+
+test('filter 會 await 非同步 predicate,只留符合的項目', async () => {
+  const result = await Array.fromAsync(filter([1, 2, 3, 4], async (n) => n % 2 === 0));
+
+  assert.deepEqual(result, [2, 4]);
+});
