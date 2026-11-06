@@ -141,6 +141,17 @@ mod tests {
         assert_eq!(JsonExporter.export(&[]), "[]");
     }
 
+    // 缺 key 的列依表頭查值,該欄輸出空字串,其餘欄位不會錯位
+    #[test]
+    fn missing_key_yields_empty_field() {
+        let sparse = vec![
+            row("1", "Alice"),
+            Row::from([("name".to_string(), "Bob".to_string())]),
+        ];
+        assert_eq!(CsvExporter.export(&sparse), "id,name\n1,Alice\n,Bob");
+        assert_eq!(csv_export(&sparse), "id,name\n1,Alice\n,Bob");
+    }
+
     // 標準庫式:sort_by_key 的 key 閉包本身就是策略
     #[test]
     fn std_closure_is_a_strategy() {

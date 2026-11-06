@@ -9,15 +9,13 @@ impl Exporter for CsvExporter {
         let Some(first) = rows.first() else {
             return String::new();
         };
-        let header = first
-            .keys()
-            .map(String::as_str)
-            .collect::<Vec<_>>()
-            .join(",");
-        // shortcut: 不處理含逗號/引號/換行的欄位跳脫,需要時改用 RFC 4180 跳脫
+        let header_keys: Vec<&str> = first.keys().map(String::as_str).collect();
+        let header = header_keys.join(",");
+        // shortcut: 欄位以第一列的 key 為準,不處理含逗號/引號/換行的跳脫,需要時改用 RFC 4180 跳脫
         let lines = rows.iter().map(|row| {
-            row.values()
-                .map(String::as_str)
+            header_keys
+                .iter()
+                .map(|k| row.get(*k).map_or("", String::as_str))
                 .collect::<Vec<_>>()
                 .join(",")
         });
