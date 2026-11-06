@@ -34,3 +34,8 @@ test('函式版:裸函式包成 { export } 後,輸出與 class 版 csv 相同', 
 test('標準庫式:比較函式本身就是策略', () => {
   assert.deepEqual([3, 1, 2].toSorted((a, b) => a - b), [1, 2, 3]);
 });
+
+test('空資料:兩種寫法的 csv 都回傳空字串', () => {
+  assert.equal(classService().export([], 'csv'), '');
+  assert.equal(csvExport([]), '');
+});
