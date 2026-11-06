@@ -12,7 +12,7 @@ export function signal(initial) {
     set(next) {
       if (Object.is(next, value)) return;
       value = next;
-      // 迭代副本:effect 重跑時會再 add 自己,直接迭代 Set 會無限循環。
+      // 迭代副本:通知期間新加入的訂閱者不該在同一輪被執行。
       for (const run of [...subscribers]) run();
     },
   };
@@ -32,7 +32,7 @@ export function effect(fn) {
   run();
 }
 
-// shortcut: computed 是 eager 的,沒有排程與 glitch-free 保證;需要時改用 TC39 Signals polyfill 或框架實作
+// shortcut: computed 是 eager 的,沒有排程與 glitch-free 保證;需要時改用 TC39 Signals polyfill 或框架實作;不清除舊相依
 export function computed(fn) {
   const s = signal(undefined);
   effect(() => s.set(fn()));
