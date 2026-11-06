@@ -11,6 +11,7 @@ design-pattern/
 ├── java/
 ├── python/
 ├── go/
+├── javascript/
 └── ...
 ```
 
@@ -26,6 +27,7 @@ python/
 ## 已實作
 
 - **[go/](go/)** — GoF 23 種 + 4 種 Go 慣用並發模式,依 GoF 書本順序編號,每個模式一個獨立 module 與可跑的 `example_test.go`。詳見 [go/README.md](go/README.md)。
+- **[javascript/](javascript/)** — GoF 23 種 + 5 種 JS 現代特有模式(Signals、Async Iterator Pipeline、Cancellation、Disposable、Concurrency Limiter),零依賴,用 `node --test` 驗證。詳見 [javascript/README.md](javascript/README.md)。
 
 ## 模式分類(GoF)
 
