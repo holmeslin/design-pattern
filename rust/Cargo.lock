@@ -43,5 +43,9 @@ name = "prototype"
 version = "0.1.0"
 
 [[package]]
+name = "proxy"
+version = "0.1.0"
+
+[[package]]
 name = "singleton"
 version = "0.1.0"
