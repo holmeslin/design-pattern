@@ -33,7 +33,7 @@ cd rust && cargo test -p <name>
 | [02](02_builder) | Builder | 鏈式 SQL SELECT builder(`select` / `from` / `where_clause` 再 `build`) | 消耗型 builder:每步 `self -> Self`,不需要 `&mut`,不會留下半成品;`where` 是關鍵字,所以叫 `where_clause` |
 | [03](03_factory_method) | Factory Method | 依通道名("email" / "sms")產出 Notifier,未知通道回傳錯誤 | 一個 `match` 函式回傳 `Box<dyn Notifier>`,輸入不合法回 `Result<_, UnknownChannel>`,不 panic |
 | [04](04_prototype) | Prototype | 複製設定物件 `Config`,改副本不影響原型 | `Clone` trait 就是 Prototype,`#[derive(Clone)]` 對 `String`、`Vec` 深拷貝;`Rc` / `Arc` 欄位只複製指標 |
-| [05](05_singleton) | Singleton | 全域設定 `Config`(key/value),`instance()` 取唯一實例,可跨執行緒讀寫 | `static LazyLock`(對應 Go 的 `sync.Once`);可寫的全域狀態必須包 `Mutex`,中毒時用 `into_inner` 取回資料 |
+| [05](05_singleton) | Singleton | 全域設定 `Config`(key/value),`instance()` 取唯一實例,可跨執行緒讀寫 | `static LazyLock`(對應 Go 的 `sync.Once`);可寫的全域狀態必須用同步型別(如 `Mutex`、`RwLock` 或 atomic),因為 `static` 要求 `Sync`;本例用 `Mutex`,中毒時用 `into_inner` 取回資料 |
 
 ## 結構型 Structural
 
