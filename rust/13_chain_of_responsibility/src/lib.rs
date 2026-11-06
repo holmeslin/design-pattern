@@ -48,7 +48,7 @@ impl AuthHandler {
         Self::default()
     }
 
-    // 取代而非附加:要接多棒就巢狀 a.then(b.then(c)),a.then(b).then(c) 會把 b 蓋掉。
+    /// 取代(不是附加)下一個處理者;`a.then(b).then(c)` 會丟掉 b,要串三個請用巢狀 `a.then(b.then(c))`。
     pub fn then(mut self, next: impl Handler + 'static) -> Self {
         self.next = Some(Box::new(next));
         self
@@ -79,6 +79,7 @@ impl RateLimitHandler {
         }
     }
 
+    /// 取代(不是附加)下一個處理者;`a.then(b).then(c)` 會丟掉 b,要串三個請用巢狀 `a.then(b.then(c))`。
     pub fn then(mut self, next: impl Handler + 'static) -> Self {
         self.next = Some(Box::new(next));
         self
@@ -107,6 +108,7 @@ impl BodyHandler {
         Self::default()
     }
 
+    /// 取代(不是附加)下一個處理者;`a.then(b).then(c)` 會丟掉 b,要串三個請用巢狀 `a.then(b.then(c))`。
     pub fn then(mut self, next: impl Handler + 'static) -> Self {
         self.next = Some(Box::new(next));
         self
