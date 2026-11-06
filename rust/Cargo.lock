@@ -79,6 +79,10 @@ name = "proxy"
 version = "0.1.0"
 
 [[package]]
+name = "raii_guard"
+version = "0.1.0"
+
+[[package]]
 name = "singleton"
 version = "0.1.0"
 
