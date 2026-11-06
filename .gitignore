@@ -1,3 +1,4 @@
 # Superpowers 工作產物,不進版控
 .superpowers/
 docs/superpowers/
+rust/target/
