@@ -19,9 +19,10 @@ export function withCache(image) {
       if (prop !== 'load') return Reflect.get(target, prop);
       return () => {
         if (loaded) return `cached ${target.filename}`;
-        loaded = true;
         // 對 target 呼叫,不用 receiver(proxy):方法內若讀 #private 會 TypeError。
-        return target.load();
+        const result = target.load();
+        loaded = true; // 載入成功才算快取,load() throw 時下次要能重試
+        return result;
       };
     },
   });
