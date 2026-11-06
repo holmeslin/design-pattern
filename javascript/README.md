@@ -1,6 +1,6 @@
 # JavaScript 設計模式範例
 
-GoF 23 種設計模式 + 5 種 JS 現代特有模式,各自一個獨立範例。題目與編號對齊 [`go/`](../go)(`01`–`23` 依 GoF 書本順序),JS 現代特有模式接在後面(`24`–`28`)。
+GoF 23 種設計模式 + 5 種 JS 現代特有模式,各自一個獨立範例。`01`–`23` 的題目與編號對齊 [`go/`](../go)(依 GoF 書本順序);JS 現代特有模式接在後面(`24`–`28`),`go/` 的 `24`–`27` 是不同的模式,不對應。
 
 ## 慣例
 
@@ -15,7 +15,7 @@ NN_pattern/
 
 `<pattern>` 是目錄名去掉編號前綴,例如 `01_abstract_factory/abstract_factory.js`。`21_strategy` 例外,有 `strategy_class.js` 與 `strategy_function.js` 兩種寫法。
 
-`package.json` 零依賴,只標明 `"type": "module"` 與 `"engines": { "node": ">=24" }`(`27_disposable` 的 `using` 需要 Node 24 以上)。
+`package.json` 零依賴,標明 `"type": "module"` 與 `"engines": { "node": ">=24" }`(`27_disposable` 的 `using` 需要 Node 24 以上)。
 
 驗證單一模式(要給檔案 glob,不能只給目錄,Node 會把目錄當檔案而失敗):
 
