@@ -9,9 +9,11 @@
 | 角色 | 對應本範例 | 職責 |
 |------|-----------|------|
 | **Prototype** | 被複製的設定物件 | 當作模板 |
-| **Client** | `clone(config)` | 複製模板,取得可獨立修改的複本 |
+| **clone 操作** | `clone(config)` | Prototype 的 `clone()`:複製模板,取得可獨立修改的複本;呼叫它的程式碼才是 Client |
 
 JS 原生已內建:`structuredClone` 就是深拷貝,不用自己遞迴複製。
+
+注意:`structuredClone` 只處理純資料,class instance 會丟掉 prototype 與方法,含函式的物件會 throw `DataCloneError`。
 
 注意:JS 語言本身的 prototype chain(`Object.create`)是「共享」不是「複製」,和 GoF Prototype 是兩回事。
 
