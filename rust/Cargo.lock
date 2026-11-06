@@ -59,6 +59,10 @@ name = "mediator"
 version = "0.1.0"
 
 [[package]]
+name = "memento"
+version = "0.1.0"
+
+[[package]]
 name = "prototype"
 version = "0.1.0"
 
