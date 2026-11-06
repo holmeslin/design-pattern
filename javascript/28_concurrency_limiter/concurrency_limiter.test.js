@@ -40,3 +40,9 @@ test('任務 reject 也會釋放名額,後面的任務照常執行', async () =>
   await assert.rejects(first, /x/);
   assert.equal(await second, 'ok');
 });
+
+test('max 不是正整數就 throw RangeError,不會讓任務永遠卡住', () => {
+  assert.throws(() => createLimiter(0), RangeError);
+  assert.throws(() => createLimiter(), RangeError);
+  assert.throws(() => createLimiter(NaN), RangeError);
+});
