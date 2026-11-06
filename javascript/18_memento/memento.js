@@ -10,7 +10,7 @@ export class Editor {
     return this.#content;
   }
 
-  // 凍結快照,拿到的人只能原封不動交回 restore。
+  // 凍結快照;約定拿到的人只把它原封不動交回 restore(JS 無法強制)。
   save() {
     return Object.freeze({ content: this.#content });
   }
