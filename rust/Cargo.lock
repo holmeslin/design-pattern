@@ -81,3 +81,7 @@ version = "0.1.0"
 [[package]]
 name = "state"
 version = "0.1.0"
+
+[[package]]
+name = "template_method"
+version = "0.1.0"
