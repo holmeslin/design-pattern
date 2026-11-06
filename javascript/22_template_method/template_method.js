@@ -1,5 +1,5 @@
 export class DataJob {
-  // 固定流程:順序寫死在這裡,子類別只能覆寫步驟,不能改順序。
+  // 固定流程:順序寫死在這裡,約定子類別只覆寫步驟、不覆寫 run()。
   run() {
     return this.write(this.process(this.read()));
   }
