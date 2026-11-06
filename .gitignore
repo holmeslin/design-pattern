@@ -1,3 +1,6 @@
 # Superpowers 工作產物,不進版控
 .superpowers/
 docs/superpowers/
+
+# Rust build output
+rust/target/
