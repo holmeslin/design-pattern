@@ -7,7 +7,7 @@ pub struct Config {
 }
 
 impl Config {
-    // Rust 不允許未同步的可變全域變數,要能寫入就得包 Mutex(編譯器強制)。
+    // 可寫入的全域狀態必須用同步型別(Mutex、RwLock 或 atomic),因為 static 要求 Sync。
     // 中毒時取回內部資料繼續用:這裡的操作不會讓 map 處於不一致狀態。
     fn lock(&self) -> std::sync::MutexGuard<'_, HashMap<String, String>> {
         self.values.lock().unwrap_or_else(|e| e.into_inner())
