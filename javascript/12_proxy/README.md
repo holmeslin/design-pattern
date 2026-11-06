@@ -14,7 +14,7 @@
 
 JS 原生已內建:`Proxy` 就是語言層級的代理,不必手寫一個實作相同介面的代理類別。
 
-注意:`Proxy` 和 `#private` 不相容,方法的 `this` 若是 proxy,讀 `#field` 會 `TypeError`,所以 trap 一律對 `target` 呼叫方法,`RealImage.filename` 也因此用公開欄位。
+注意:`Proxy` 和 `#private` 不相容,方法的 `this` 若是 proxy,讀 `#field` 會 `TypeError`,所以 `load` 對 `target` 呼叫(不經 proxy);`filename` 用公開欄位,是因為 trap 寫在類別外面,讀不到 `#filename`。
 
 ## 執行
 
