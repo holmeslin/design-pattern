@@ -1,7 +1,7 @@
 // 每個階段都是 async generator:下游 next() 才會向上游拉一筆,所以天生有 backpressure。
 export async function* filter(source, predicate) {
   for await (const item of source) {
-    if (predicate(item)) yield item;
+    if (await predicate(item)) yield item;
   }
 }
 
