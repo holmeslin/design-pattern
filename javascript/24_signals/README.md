@@ -1,6 +1,6 @@
 # Signals(訊號)
 
-Observer 的現代化版本:把「值」包成 signal,讀取它的 effect / computed 會在執行時被**自動記為相依**,值改變時只重跑真正用到它的那些,不用手動 subscribe。
+Observer 的現代化版本:把「值」包成 signal,讀取它的 effect / computed 會在執行時被**自動記為相依**,值改變時重跑讀過它的那些,不用手動 subscribe。
 
 本範例:購物車,`total = price * qty` 是 computed,一個 effect 記錄每次 `total` 的值。
 
