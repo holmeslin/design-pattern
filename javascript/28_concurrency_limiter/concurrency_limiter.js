@@ -1,5 +1,6 @@
 // 同時最多 max 個任務在跑,多的先排隊;任務 settle(成功或失敗)後把名額交給下一個。
 export function createLimiter(max) {
+  if (!(Number.isInteger(max) && max >= 1)) throw new RangeError('max must be a positive integer');
   let active = 0;
   const waiting = [];
 
